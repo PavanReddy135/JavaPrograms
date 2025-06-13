@@ -1,0 +1,68 @@
+import java.util.*;
+
+abstract class Bank {
+    protected String name;
+    protected double balance;
+    protected String accountNumber;
+
+    public Bank(String name, double balance, String accountNumber) {
+        this.name = name;
+        this.balance = balance;
+        this.accountNumber = accountNumber;
+    }
+
+    public abstract void deposit(double amount);
+    public abstract void withdraw(double amount);
+}
+
+class BankAccount extends Bank {
+    public BankAccount(String name, double balance, String accountNumber) {
+        super(name, balance, accountNumber);
+    }
+
+    public void deposit(double amount) {
+        balance += amount;
+        System.out.println("Amount deposited successfully. New Balance: " + balance);
+    }
+
+    public void withdraw(double amount) {
+        if (amount <= balance) {
+            balance -= amount;
+            System.out.println("Amount withdrawn successfully. New Balance: " + balance);
+        } else {
+            System.out.println("Insufficient balance.");
+        }
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Welcome to XXX Bank\nEnter Your Details:");
+     System.out.println("Enter Your Name:");
+        String name = sc.next();
+        System.out.println("Enter Your Balance:");
+        double balance = sc.nextDouble();
+        System.out.println("Enter Your AccountNumber:");
+        String accountNumber = sc.next();
+
+        BankAccount account = new BankAccount(name, balance, accountNumber);
+
+        System.out.println("Enter your choice \n1. Deposit \n2. Withdraw");
+        int choice = sc.nextInt();
+
+        if (choice == 1) {
+            System.out.println("Enter amount to deposit:");
+            double amount = sc.nextDouble();
+            account.deposit(amount);
+        } else if (choice == 2) {
+            System.out.println("Enter amount to withdraw:");
+            double amount = sc.nextDouble();
+            account.withdraw(amount);
+        } else {
+            System.out.println("Invalid choice.");
+        }
+
+        sc.close();
+    }
+}
